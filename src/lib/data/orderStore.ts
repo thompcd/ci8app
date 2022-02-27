@@ -152,6 +152,10 @@ export async function updateBomLabor(items:WorkOrderLineItem[]):Promise<BomItem[
 //summing function
 const sum = (previousValue, currentValue) => previousValue + currentValue;
 
+function isValidDate(d:any) {
+	return (d !== '');
+  }
+
 //grab all open orders
 //note: only data that needs to be visible on inital renders needs populated here
 //other fields can be accessed via accessor functions
@@ -166,6 +170,7 @@ export async function updateOrders(): Promise<WorkOrderQueryResult>{
     let result:WorkOrderQueryResult = await response.json();
 
     result?.data?.forEach(order => {
+        //TODO: CHECK WHICH DATES ON ORDER MIGHT BE CAUSING THE TIMELINE OLDEST DATE TO BE SUPER OLD
         order.formattedDate = getDate(order.date);
         order.stage = determineStage(order);
         order.wpLaborHours = order.customFields['WP Labor Time']?.value || 0;
@@ -177,6 +182,10 @@ export async function updateOrders(): Promise<WorkOrderQueryResult>{
             item.outstandingQuantity = +item.quantity - +item.shipped;
             item.open = +item.quantity - +item.produced
             item.order = order
+            if (!isValidDate(item.duedate)){
+                item.duedate = today;
+                item.description += ' ITEM HAS AN INVALID DUE DATE';
+            }
             // item.dayUntilDue = new Date(item.duedate.getTime() - new Date().getTime())
         })
         //this requires line items to be populated before calculating

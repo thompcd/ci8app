@@ -14,9 +14,9 @@
 	$: checkActive = ({ href, hrefIncludes, queryIncludes }) => {
 		if (!!queryIncludes?.id) {
 			const { id, queryId } = queryIncludes;
-			return $page.query.get(id) === queryId;
+			return $page.params[id] === queryId;
 		} else {
-			return $page.path === href || (hrefIncludes && $page.path.includes(hrefIncludes));
+			return $page.url.pathname === href || (hrefIncludes && $page.url.pathname.includes(hrefIncludes));
 		}
 	};
 </script>
@@ -45,7 +45,7 @@
 				inherit
 				underline
 			>
-				<SVG {icon} style="padding-bottom: 4px;" />
+			<SVG {icon} style="padding-bottom: 4px;" />
 			</Link>
 		{/each}
 	</div>

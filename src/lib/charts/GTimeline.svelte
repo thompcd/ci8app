@@ -10,7 +10,8 @@
   import type { TimelineColumn, SelectedEventData, TimelineRow } from '$lib/interfaces/timeline';
   import { addDays } from "$lib/date-utils";
   import { cuttoffDate } from "$lib/data/orderStore";
-import { UrlMap } from "$lib/data/urlMap";
+  import { UrlMap } from "$lib/data/urlMap";
+import Spinner from "$lib/SvelteTip/@Layout/Spinner.svelte";
 
   export let cols: TimelineColumn[]
   export let rows: any[]
@@ -50,8 +51,6 @@ import { UrlMap } from "$lib/data/urlMap";
       data: selection[selection.length - 1],
     });
 
-    //TODO: move this out to the app layer
-    //handle the internal event action
     let selectedOrder: TimelineColumn = rows[selection[0].row]
     var link = UrlMap.get('WorkOrderView') + (selectedOrder[0] ?? '');
     console.log(link)
@@ -157,12 +156,12 @@ import { UrlMap } from "$lib/data/urlMap";
   //   );
 
   //wait for the timeline to render
-  $: if (timelineElement) {
-    // console.log("rendered timeline")
-    // console.log(timelineElement)
-    // console.log(timelineElement.shadowRoot)
-    // addMarker(timelineElement, new Date(), addDays(new Date(), -3, new Date()), addDays(new Date(), 30, new Date()))
-  }
+  // $: if (timelineElement) {
+  //   // console.log("rendered timeline")
+  //   // console.log(timelineElement)
+  //   // console.log(timelineElement.shadowRoot)
+  //   // addMarker(timelineElement, new Date(), addDays(new Date(), -3, new Date()), addDays(new Date(), 30, new Date()))
+  // }
 
 </script>
 {#if title}
@@ -181,7 +180,7 @@ import { UrlMap } from "$lib/data/urlMap";
   options={options}>
 </google-chart>
 {:else}
-  <h2>Loading...</h2>
+  <Spinner></Spinner>
 {/if}
 
 <style>
