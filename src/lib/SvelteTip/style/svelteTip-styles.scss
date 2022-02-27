@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;600;700&family=Roboto:wght@400;600;700&display=swap');
+
+:root {
+	--st-font-one: 'Sen', 'Segoe UI Light', 'Segoe', Tahoma, Helvetica, Arial, sans-serif;
+	--st-font-two: 'Roboto', 'Segoe UI Light', 'Segoe', Tahoma, Helvetica, Arial, sans-serif;
+
+	--st-tiny-font: 9px;
+	--st-small-font: 11px;
+	--st-medium-font: 12px;
+	--st-large-font: 16px;
+}
+
+:global(#svelte-tip-app h1) {
+	font-family: var(--st-font-one);
+	font-size: 2em;
+	margin: 0;
+	padding: 0;
+}
+
+:global(#svelte-tip-app h2) {
+	font-family: var(--st-font-one);
+	font-size: 1.8em;
+	margin: 0;
+	padding: 0;
+}
+
+:global(#svelte-tip-app h3) {
+	font-family: var(--st-font-one);
+	font-size: 1.6em;
+	margin: 0;
+	padding: 0;
+}
+
+:global(#svelte-tip-app h4) {
+	font-family: var(--st-font-one);
+	font-size: 1.2em;
+	margin: 0;
+	padding: 0;
+}
+
+:global(#svelte-tip-app h5) {
+	font-family: var(--st-font-one);
+	font-size: 1em;
+	margin: 0;
+	padding: 0;
+	color: var(--heading-color);
+}
+
+:global(#svelte-tip-app button) {
+	font-family: var(--st-font-one);
+}
+
+:global(#svelte-tip-app textarea) {
+	color: inherit;
+	border: inherit;
+}
+
+:global(#svelte-tip-app body) {
+	font-family: var(--st-font-two);
+}
+
+:global(#svelte-tip-app p) {
+	font-family: var(--st-font-two);
+}
+
+:global(#svelte-tip-app label) {
+	font-family: var(--st-font-two);
+}
+
+:global(#svelte-tip-app li) {
+	font-family: var(--st-font-two);
+}
+
+:global(#svelte-tip-app span) {
+	font-family: inherit;
+}
+
+:global(#svelte-tip-app a) {
+	font-family: var(--st-font-two);
+	text-decoration: none;
+	color: inherit;
+
+	&:visited {
+		color: inherit;
+	}
+}
+
+:global(#svelte-tip-app li) {
+	color: inherit;
+}
+
+:global(#svelte-tip-app div) {
+	font-family: var(--st-font-two);
+}
+
+:global(#svelte-tip-app input) {
+	font-size: var(--st-medium-font);
+	font-family: var(--st-font-two);
+	color: inherit;
+	border: inherit;
+	/*** iPhone and iOS Form Input Zoom Fixes ***/
+	/* Fix Input Zoom on devices older than iPhone 5: */
+	@media screen and (device-aspect-ratio: 2/3) {
+		select,
+		textarea,
+		input[type='text'],
+		input[type='password'],
+		input[type='datetime'],
+		input[type='datetime-local'],
+		input[type='date'],
+		input[type='month'],
+		input[type='time'],
+		input[type='week'],
+		input[type='number'],
+		input[type='email'],
+		input[type='url'] {
+			font-size: var(--st-large-font);
+		}
+	}
+
+	/* Fix Input Zoom on iPhone 5, 5C, 5S, iPod Touch 5g */
+	@media screen and (device-aspect-ratio: 40/71) {
+		select,
+		textarea,
+		input[type='text'],
+		input[type='password'],
+		input[type='datetime'],
+		input[type='datetime-local'],
+		input[type='date'],
+		input[type='month'],
+		input[type='time'],
+		input[type='week'],
+		input[type='number'],
+		input[type='email'],
+		input[type='url'] {
+			font-size: var(--st-large-font);
+		}
+	}
+
+	/* Fix Input Zoom on iPhone 6, iPhone 6s, iPhone 7  */
+	@media screen and (device-aspect-ratio: 375/667) {
+		select,
+		textarea,
+		input[type='text'],
+		input[type='password'],
+		input[type='datetime'],
+		input[type='datetime-local'],
+		input[type='date'],
+		input[type='month'],
+		input[type='time'],
+		input[type='week'],
+		input[type='number'],
+		input[type='email'],
+		input[type='url'] {
+			font-size: var(--st-large-font);
+		}
+	}
+
+	/* Fix Input Zoom on iPhone 6 Plus, iPhone 6s Plus, iPhone 7 Plus, iPhone 8, iPhone X, XS, XS Max  */
+	@media screen and (device-aspect-ratio: 9/16) {
+		select,
+		textarea,
+		input[type='text'],
+		input[type='password'],
+		input[type='datetime'],
+		input[type='datetime-local'],
+		input[type='date'],
+		input[type='month'],
+		input[type='time'],
+		input[type='week'],
+		input[type='number'],
+		input[type='email'],
+		input[type='url'] {
+			font-size: var(--st-large-font);
+		}
+	}
+}

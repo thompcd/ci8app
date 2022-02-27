@@ -1,0 +1,55 @@
+{
+	"compilerOptions": {
+		"moduleResolution": "node",
+		"module": "es2020",
+		"lib": ["es2020", "DOM"],
+		"target": "es2020",
+		/**
+			svelte-preprocess cannot figure out whether you have a value or a type, so tell TypeScript
+			to enforce using \`import type\` instead of \`import\` for Types.
+		*/
+		"importsNotUsedAsValues": "error",
+		/**
+			TypeScript doesn't know about import usages in the template because it only sees the
+			script of a Svelte file. Therefore preserve all value imports. Requires TS 4.5 or higher.
+		*/
+		"preserveValueImports": true,
+		"isolatedModules": true,
+		"resolveJsonModule": true,
+		/**
+			To have warnings/errors of the Svelte compiler at the correct position,
+			enable source maps by default.
+		*/
+		"sourceMap": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": ".",
+		"allowJs": true,
+		"checkJs": true,
+		"paths": {
+			"$lib": ["src/lib"],
+			"$lib/*": ["src/lib/*"],
+
+			"@button/*": ["src/lib/SvelteTip/@Buttons/*"],
+			"@cards/*": ["src/lib/SvelteTip/@Cards/*"],
+			"@chart/*": ["src/lib/SvelteTip/@Charts/*"],
+			"@examples/*": ["src/lib/SvelteTip/@Examples/*"],
+			"@external/*": ["src/lib/SvelteTip/@External/*"],
+			"@form/*": ["src/lib/SvelteTip/@Form/*"],
+			"@required/*": ["src/lib/SvelteTip/@Required/*"],
+			"@images/*": ["src/lib/SvelteTip/@Images/*"],
+			"@layout/*": ["src/lib/SvelteTip/@Layout/*"],
+			"@link/*": ["src/lib/SvelteTip/@Links/*"],
+			"@panel/*": ["src/lib/SvelteTip/@Panels/*"],
+			"@shopping/*": ["src/lib/SvelteTip/@Shopping/*"],
+			"@system/*": ["src/lib/SvelteTip/@System/*"],
+			"@text/*": ["src/lib/SvelteTip/@Text/*"],
+			"@utility/*": ["src/lib/SvelteTip/@Utility/*"],
+
+			"@st-stores/*": ["src/lib/SvelteTip/stores/*"],
+			"@st-js/*": ["src/lib/SvelteTip/js/*"]
+		}
+	},
+	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]
+}
