@@ -29,6 +29,7 @@
     "@fontsource/fira-mono": "^4.5.0",
     "@google-web-components/google-chart": "^5.0.1",
     "@lukeed/uuid": "^2.0.0",
+    "@vitejs/plugin-vue": "^2.2.4",
     "cookie": "^0.4.1",
     "dotenv": "^16.0.0",
     "vite": "^2.4.1"

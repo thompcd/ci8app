@@ -51,5 +51,5 @@
 			"@st-js/*": ["src/lib/SvelteTip/js/*"]
 		}
 	},
-	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]
+	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte", "vite.config.js"]
 }
