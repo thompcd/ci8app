@@ -26,7 +26,6 @@
 		<ul>
 			<li><h2>A labor chart that actually functions</h2></li>
 			<li><h2>Edit number of days into future to forecast</h2></li>
-			<li><h2>Port token expiration notice</h2></li>
 			<li><h2>Cache inventory items to reduce query time</h2></li>
 			<li><h2>User login and authentication</h2></li>
 			<li><h2>Automatic token refresh</h2></li>
@@ -40,6 +39,7 @@
 		<li>
 			<h2>Preview 0.1 - Initial Preview</h2>
 			<ul>
+				<li>Private token storage to allow publishing</li>
 				<li>Toggle detailed data</li>
 				<li>Extract labor value from open work orders</li>
 				<li>Add page routing and nav bar</li>
@@ -49,6 +49,7 @@
 				<li>Create SOS data client</li>
 				<li>Port timeline from script import to webcomponent</li>
 				<li>Port tables from script import to webcomponent</li>
+				<li>Port token expiration notice</li>
 			</ul>
 		</li>
 	</ul>
