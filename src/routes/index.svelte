@@ -1,11 +1,3 @@
-<script context="module" lang="ts">
-	export const prerender = true;
-</script>
-
-<script lang="ts">
-	import Counter from '$lib/Counter.svelte';
-</script>
-
 <svelte:head>
 	<title>Home</title>
 </svelte:head>
@@ -18,15 +10,27 @@
 				<img src="svelte-welcome.png" alt="Welcome" />
 			</picture>
 		</div>
-
-		to your new<br />SvelteKit app
 	</h1>
 
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
+	<ul>
+		<li>
 
-	<Counter />
+			<h2>
+				View your upcoming due orders on your <strong>schedule</strong>
+			</h2>
+		</li>
+		<li>
+			<h2>
+				Forecast your labor allocation after extracting bom labor and using <strong>labor</strong>
+			</h2>
+		</li>
+		<li>
+			<h2>
+				Toggle your <strong>detailed view</strong> in order to further inspect tabular data being viewed
+			</h2>
+		</li>
+	</ul>
+
 </section>
 
 <style>
@@ -38,10 +42,13 @@
 		flex: 1;
 	}
 
-	h1 {
+	h1, h2 {
 		width: 100%;
 	}
 
+	li{
+		margin: 2rem;
+	}
 	.welcome {
 		position: relative;
 		width: 100%;

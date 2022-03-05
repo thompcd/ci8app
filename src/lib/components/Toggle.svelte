@@ -1,6 +1,7 @@
 <script>
     export let checked = false;
     export let color = "#2196F3";
+    export let margin = "0";
   </script>
   
   <style>
@@ -58,7 +59,7 @@
     }
   </style>
   
-  <label class="switch">
+  <label class="switch" style:margin="{margin}">
     <input type="checkbox" bind:checked />
     <span class="slider" />
   </label>

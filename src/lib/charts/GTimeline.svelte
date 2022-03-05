@@ -8,10 +8,9 @@
   import { createEventDispatcher } from "svelte";
 
   import type { TimelineColumn, SelectedEventData, TimelineRow } from '$lib/interfaces/timeline';
-  import { addDays } from "$lib/date-utils";
-  import { cuttoffDate } from "$lib/data/orderStore";
+  import { cuttoffDate } from "$lib/data/dateStore";
   import { UrlMap } from "$lib/data/urlMap";
-import Spinner from "$lib/SvelteTip/@Layout/Spinner.svelte";
+  import Spinner from "$lib/SvelteTip/@Layout/Spinner.svelte";
 
   export let cols: TimelineColumn[]
   export let rows: any[]

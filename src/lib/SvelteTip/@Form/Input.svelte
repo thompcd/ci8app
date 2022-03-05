@@ -12,7 +12,7 @@
 
 	export let type = null;
 	export let placeholder = null;
-	export let value = '';
+	export let value: string | number = '';
 	export let nomargin = false;
 	export let key = null;
 	export let label = null;
