@@ -51,10 +51,6 @@
         });
         }
      };
-
-     async function doIt(){
-         console.log("doing it")
-     }
      
      async function updateLabor():Promise<void>{
         //wait for the work order line items to load before extracting labor from them
