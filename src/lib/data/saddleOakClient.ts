@@ -124,9 +124,6 @@ function isValidDate(d:any) {
 //note: only data that needs to be visible on inital renders needs populated here
 //other fields can be accessed via accessor functions
 export async function updateOrders(): Promise<WorkOrderQueryResult>{
-    console.log("netlify var test")
-    console.log(variables.netlifyTest);
-    console.log(variables.dummyTest);
     var myHeaders = new Headers();
     myHeaders.append("Authorization", variables.saddleOakToken);
     let response = await fetch("https://api.sosinventory.com/api/v2/workorder?status=open", {
