@@ -54,7 +54,8 @@ export async function fetchBomItem(id:number):Promise<BomItem>{
         // console.log("adding to ignore list" + id)
         ignoredItemStore.set([...get(ignoredItemStore), id])
     }
-
+    console.log("found bom item")
+    console.log(result?.data)
     let labor = result?.data?.find(d => d.componentItem?.id === 244);
     // console.log("filtered for labor on item " + id);
     // console.log(labor);
@@ -147,7 +148,7 @@ export async function updateOrders(): Promise<WorkOrderQueryResult>{
             item.open = +item.quantity - +item.produced
             item.order = order
             if (!isValidDate(item.duedate)){
-                item.duedate = today;
+                item.duedate = order.formattedDate.timestamp;
                 item.description += ' ITEM HAS AN INVALID DUE DATE';
             }
             // item.dayUntilDue = new Date(item.duedate.getTime() - new Date().getTime())
