@@ -13,7 +13,7 @@
 	</h1>
 
 	<div class="focus">
-		<h1>Version - Preview 0.1</h1>
+		<h1>Version - Preview 0.2</h1>
 		<ul>
 			<li><h2>View your upcoming due orders on your <strong>schedule</strong></h2></li>
 			<li><h2>Forecast your labor allocation after extracting bom labor and using <strong>labor</strong></h2></li>
@@ -24,8 +24,8 @@
 	<div class="focus">
 		<h2>Upcoming Features</h2>
 		<ul>
-			<li><h2>A labor chart that actually functions</h2></li>
 			<li><h2>Edit number of days into future to forecast</h2></li>
+			
 			<li><h2>Cache inventory items to reduce query time</h2></li>
 			<li><h2>User login and authentication</h2></li>
 			<li><h2>Automatic token refresh</h2></li>
@@ -36,6 +36,13 @@
 
 	<h2>Change Log</h2>
 	<ul>
+		<li>
+			<h2>Preview 0.2 - Labor Chart Preview</h2>
+			<ul>
+				<li>Stacked bar chart data formatter</li>
+				<li>Stacked bar chart hard coded labels</li>
+			</ul>
+		</li>
 		<li>
 			<h2>Preview 0.1 - Initial Preview</h2>
 			<ul>
