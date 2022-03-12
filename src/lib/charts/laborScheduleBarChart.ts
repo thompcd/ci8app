@@ -32,18 +32,20 @@ export function formatTableRows(data: WorkOrder[]){
 }
 
 export function formatStackedItems(data: WorkOrder[]){
-    var dateArray = data.map(w => w.formattedDate.pretty)
-    console.log("grabbing dates")
-    console.log(dateArray)
+    var dateArray = data
+    .sort((a,b)=> +a.formattedDate.timestamp - +b.formattedDate.timestamp) //ascending
+    .map(w => w.formattedDate.pretty) //output pretty dates
 
     //Set will capture distinct values in a new object
     let uniqueVals = [... new Set(dateArray)];
     console.log(uniqueVals)
 
-    //annotations
+    //chunk by work order
     var bins = data.map(w => w.id.toString())
+    //ensure we're unique
     let uniqueIds = [ ... new Set(bins)]
-    uniqueIds.unshift("build date")
+    //first element in first row is a descriptor
+    uniqueIds.unshift("work order id")
 
     let temp = [];
     temp.push(uniqueIds);

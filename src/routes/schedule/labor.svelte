@@ -11,8 +11,6 @@
     <div style="height:600px;width:1200px;">
         <GBars
         title="Labor Forecast"
-        hAxisTitle="Build Date"
-        vAxisTitle="Labor Hours"
         data={formatStackedItems($filteredWorkOrders)}
         height={'600px'}
         />
