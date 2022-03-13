@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import ThemeSwitch from '$lib/SvelteTip/@Utility/ThemeSwitch.svelte';
 	import logo from './ci8-alpha.png';
 </script>
 
@@ -28,8 +29,8 @@
 		</svg>
 	</nav>
 
-	<div class="corner">
-		<!-- TODO put something else here? github link? -->
+	<div class="corner" id="themeswitch">
+		<ThemeSwitch></ThemeSwitch>
 	</div>
 </header>
 
@@ -37,6 +38,12 @@
 	header {
 		display: flex;
 		justify-content: space-between;
+	}
+
+	#themeswitch{
+		width: auto;
+		height: auto;
+		margin: 0.5rem;
 	}
 
 	.corner {

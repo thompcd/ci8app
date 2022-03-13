@@ -93,7 +93,7 @@
 
 <div id="svelte-tip-app" class:ready bind:clientWidth={$appWidth} bind:clientHeight={$appHeight}>
 	<SnackBar {snack} />
-	<Modal show={modalOpen} />
+	<!-- <Modal show={modalOpen} /> -->
 	<HashWatch onChange={hashChange} />
 	<slot />
 </div>
@@ -117,6 +117,6 @@
 		top: 0;
 		left: 0;
 		width: 100%;
-		z-index: 1;
+		z-index: -1;
 	}
 </style>

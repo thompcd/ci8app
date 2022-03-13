@@ -16,7 +16,7 @@
     import { formatTableColumns, formatTableRows } from '$lib/charts/workOrderTable';
     import { filteredItems } from '$lib/data/itemStore';
     import { laborStore as filteredBomLabor } from '$lib/data/laborStore'
-    import { daysIntoFuture } from '$lib/data/dateStore'
+    import { cuttoffDate, daysIntoFuture } from '$lib/data/dateStore'
     import { formatTableColumns as formatItemTableColumns, formatTableRows as formatItemTableRows } from '$lib/charts/lineItemTable'
     import {  setClient } from '$lib/data/inventoryClient';
     
@@ -51,19 +51,19 @@
         workOrderRefreshStamp = "Updated " + getLongFormattedDate(new Date());
         if ($filteredBomLabor?.length < 1){
             addSnack({
-            message: "Labor for part numbers does not exist, starting lookup. This could take a few minutes.",
-            type: 'warn',
-            duration: '4000',
-            closeOnClick: true
+                message: "Labor for part numbers does not exist, starting lookup. This could take a few minutes.",
+                type: 'warn',
+                duration: '4000',
+                closeOnClick: true
             });
             updateLabor();
         }else{
             addSnack({
-            message: "Open work orders up to date",
-            type: 'success',
-            duration: '2000',
-            closeOnClick: true
-        });
+                message: "Open work orders up to date",
+                type: 'success',
+                duration: '2000',
+                closeOnClick: true
+            });
         }
      };
      
@@ -71,17 +71,13 @@
         //wait for the work order line items to load before extracting labor from them
         if ($filteredItems?.length > 0){
             addSnack({
-            message: "Gathering labor for inventory items",
-            type: 'primary',
-            duration: '4000',
-            closeOnClick: true
-        });
-            console.log("updating labor")
+                message: "Gathering labor for inventory items",
+                type: 'primary',
+                duration: '4000',
+                closeOnClick: true
+            });
             laborButtonLabel = "Searching..."
             await inventoryClient.updateBomLabor($filteredItems);
-        }
-        else{
-            console.log("not updating labor");
         }
         addSnack({
             message: "Inventory items up to date",
@@ -89,7 +85,7 @@
             duration: '2000',
             closeOnClick: true
         });
-        laborRefreshStamp = "Updated " + getLongFormattedDate(new Date());
+        laborRefreshStamp = "Last Updated " + getLongFormattedDate(new Date());
         laborButtonLabel = "Refresh Bom Labor";
     };
 
@@ -99,11 +95,11 @@
 </script>
 
 <aside class="flex">
-    <!-- <div>
-        <p>Forecast days into future</p>
-        <input bind:value={$daysIntoFuture}>
-        <Input value={$daysIntoFuture} type='number' label='Forecast days into future' regex='^[0-9.]+$' minLength='1' maxLength='10' />    
-    </div> -->
+    <div class='input'>
+        <!-- <p>Forecast days into future</p>
+        <input bind:value={$daysIntoFuture} type="number" aria-label="future forecast" minlength="1"> -->
+        <Input bind:value={$daysIntoFuture} type='number' label='Days into future' regex='^[0-9.]+$' minLength='1' maxLength='10' />    
+    </div>
     <div class="flex">
         <h3 class="spacing">Detailed View</h3>
         <Toggle bind:checked={viewQueryResults} margin={'0 0 0 0.5rem'}/>
@@ -208,5 +204,8 @@
     }
     .block{
         margin-bottom: 4rem;
+    }
+    .input{
+        margin-top: -0.5rem;
     }
 </style>

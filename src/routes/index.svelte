@@ -13,18 +13,18 @@
 	</h1>
 
 	<div class="focus">
-		<h1>Version - Preview 0.3</h1>
+		<h1>Version - Preview 0.4</h1>
 		<ul>
 			<li><h2>View your upcoming due orders on your <strong>schedule</strong></h2></li>
 			<li><h2>Forecast your labor allocation after extracting bom labor and using <strong>labor</strong></h2></li>
 			<li><h2>Toggle your <strong>detailed view</strong> in order to further inspect tabular data being viewed</h2></li>
+			<li><h2>Choose number of <strong>days into future</strong> to filter upcoming work orders forecast</h2></li>
 		</ul>
 	</div>
 
 	<div class="focus">
 		<h2>Upcoming Features</h2>
 		<ul>
-			<li><h2>Edit number of days into future to forecast</h2></li>
 			<li><h2>User login and authentication</h2></li>
 			<li><h2>Automatic token refresh</h2></li>
 			<li><h2>Improved chart sizing</h2></li>
@@ -34,6 +34,14 @@
 
 	<h2>Change Log</h2>
 	<ul>
+		<li>
+			<h2>Preview 0.4 - Change Forecast Date</h2>
+			<ul>
+				<li>Change Forecast Date - Add input to set number of days into future</li>
+				<li>Change Forecast Date - Re-draw schedule on forecast date range change</li>
+				<li>Change Forecast Date - Remember number of days between sessions</li>
+			</ul>
+		</li>
 		<li>
 			<h2>Preview 0.3 - Improved Query Speeds</h2>
 			<ul>

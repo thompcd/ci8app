@@ -8,11 +8,11 @@
 </script>
 
 {#if  $filteredBomLabor}
-    <div style="height:600px;width:1200px;">
+    <div style="height:800px;width:1200px;">
         <GBars
         title="Labor Forecast"
         data={formatStackedItems($filteredWorkOrders)}
-        height={'600px'}
+        height={'800px'}
         />
     </div>
     {:else}
