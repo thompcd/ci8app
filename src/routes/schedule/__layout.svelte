@@ -47,11 +47,11 @@
             closeOnClick: true
         });
 
-         $orders = await inventoryClient.updateOrders();
+        $orders = await inventoryClient.updateOrders();
         workOrderRefreshStamp = "Updated " + getLongFormattedDate(new Date());
         if ($filteredBomLabor?.length < 1){
             addSnack({
-            message: "Labor for part numbers does not exist, starting looking. This could take a few minutes.",
+            message: "Labor for part numbers does not exist, starting lookup. This could take a few minutes.",
             type: 'warn',
             duration: '4000',
             closeOnClick: true
@@ -69,7 +69,6 @@
      
      async function updateLabor():Promise<void>{
         //wait for the work order line items to load before extracting labor from them
-        console.log("clicked")
         if ($filteredItems?.length > 0){
             addSnack({
             message: "Gathering labor for inventory items",
@@ -148,44 +147,44 @@
     {:else if $filteredBomLabor?.length == 0}
     <p>No labor found in upcoming work orders</p>
     {:else}
-    {#each $filteredBomLabor as item}
     {#if viewQueryResults}
-        <div>
-            <h2>Items</h2>
-            <ul>
-                {#if item}
-                <li>
-                    <h2>Item {item?.bomItemId}</h2>
-                    <p>Hours = {item?.hours ?? "no labor found"}</p>
-                </li>
-                {/if}
-            </ul>
-        </div>
-         <div>
-            <h2>Orders</h2>
-            <p>{workOrderRefreshStamp}</p>
-            <p># Work Orders - {$filteredWorkOrders?.length ?? 0}</p>
-            <p># Items Attached to Work Orders - {$filteredItems?.length ?? 0}</p>
-            {#if $orders && $orders.count > 0 && viewQueryResults}
-            <ul>
-                {#each $orders.data as item}
-                <li>
-                    <h3>{item.id}</h3>
-                    <p>Assembly Hours: {item.assemblyLaborHours}</p>
-                    <p>Wire Prep Hours: {item.wpLaborHours}</p>
-                    <p>Items:</p>
-                    <ul>
-                        {#each item.lines as line} 
-                        <p>{line.id}</p>
-                        {/each}
-                    </ul>
-                </li>
-                {/each}
-            </ul>
+    <div>
+        <h2>Labor Items</h2>
+        <ul>
+            {#each $filteredBomLabor as item}
+            {#if item}
+            <li>
+                <h2>Item {item?.bomItemId}</h2>
+                <p>Hours = {item?.hours ?? "no labor found"}</p>
+            </li>
             {/if}
-        </div>
+            {/each}
+        </ul>
+    </div>
+    <div>
+        <h2>Orders</h2>
+        <p>{workOrderRefreshStamp}</p>
+        <p># Work Orders - {$filteredWorkOrders?.length ?? 0}</p>
+        <p># Items Attached to Work Orders - {$filteredItems?.length ?? 0}</p>
+        {#if $orders && $orders.count > 0 && viewQueryResults}
+        <ul>
+            {#each $orders.data as item}
+            <li>
+                <h3>{item.id}</h3>
+                <p>Assembly Hours: {item.assemblyLaborHours}</p>
+                <p>Wire Prep Hours: {item.wpLaborHours}</p>
+                <p>Items:</p>
+                <ul>
+                    {#each item.lines as line} 
+                    <p>{line.id}</p>
+                    {/each}
+                </ul>
+            </li>
+            {/each}
+        </ul>
+        {/if}
+    </div>
     {/if}
-    {/each}
     {/if}
 </div>
 {/if}
