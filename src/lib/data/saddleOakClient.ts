@@ -5,23 +5,48 @@ import { get } from 'svelte/store';
 import { ignoredItemStore } from './itemStore';
 import { laborStore } from './laborStore';
 import { orderStore } from './orderStore';
-import { today } from './dateStore';
 import { sum } from './utilities';
 
 import type { BomItem } from '../interfaces/sos/bomItem';
 import type { OrderStage, WorkOrder, WorkOrderLineItem, WorkOrderQueryResult } from '../interfaces/sos/workOrder';
 
-export async function fetchBomItem(id:number):Promise<BomItem>{
-    var myHeaders:Headers = new Headers();
-    myHeaders.append("Authorization", variables.saddleOakToken);
+///accepts browser or server fetch classes
+///connects to saddle oak inventory api
+///requires tenant to already exist and have account
+///TODO: generate new bearer tokens
+export class SaddleOakClient{
+    _fetch: typeof global.fetch;
 
-    if(get(ignoredItemStore)?.includes(id) === true){
-        console.log("skipping because it is ignored" + id)
-        return null;
+    _clientId: string;
+    get clientId(): string{
+        return this._clientId;
+    }
+    _baseUrl: string;
+    get baseUrl(): string{
+        return this._baseUrl;
     }
 
+    get tokenUrl(): String{
+        return `https://api.sosinventory.com/oauth2/authorize?response_type=code&client_id=${this.clientId}&redirect_uri=`;
+    }
+
+    constructor(fetch: typeof global.fetch, id: string, baseUrl: string){
+        this._fetch = fetch;
+        this._clientId = id;
+        this._baseUrl = baseUrl;
+    }
+
+    async fetchBomItem(id:number):Promise<BomItem>{
+        var myHeaders:Headers = new Headers();
+        myHeaders.append("Authorization", variables.saddleOakToken);
+        
+        if(get(ignoredItemStore)?.includes(id) === true){
+            console.log("skipping because it is ignored" + id)
+            return null;
+        }
+
     let result = await retry(
-        fetch('https://api.sosinventory.com/api/v2/item/' + id + '/bom', {
+        this._fetch(`${this.baseUrl}/api/v2/item/` + id + '/bom', {
             method: 'GET',
             headers: myHeaders,
             redirect: 'follow'
@@ -69,7 +94,7 @@ export async function fetchBomItem(id:number):Promise<BomItem>{
     }
 }
 
-export async function updateBomLabor(items:WorkOrderLineItem[]):Promise<BomItem[]>{
+    async updateBomLabor(items:WorkOrderLineItem[]):Promise<BomItem[]>{
     let t:BomItem[] = [];
 
     //remove any items in the ignore list
@@ -81,7 +106,7 @@ export async function updateBomLabor(items:WorkOrderLineItem[]):Promise<BomItem[
     // console.log(items)
     for(const item of items){
         console.log("fetching bom item " + item.id )
-        await fetchBomItem(item.id)
+        await this.fetchBomItem(item.id)
             .then((r)=>{
                 console.log("result")
                 console.log(r)
@@ -117,17 +142,13 @@ export async function updateBomLabor(items:WorkOrderLineItem[]):Promise<BomItem[
     return t;
 }
 
-function isValidDate(d:any) {
-	return (d !== '');
-  }
-
 //grab all open orders
 //note: only data that needs to be visible on inital renders needs populated here
 //other fields can be accessed via accessor functions
-export async function updateOrders(): Promise<WorkOrderQueryResult>{
+    async updateOrders(): Promise<WorkOrderQueryResult>{
     var myHeaders = new Headers();
     myHeaders.append("Authorization", variables.saddleOakToken);
-    let response = await fetch("https://api.sosinventory.com/api/v2/workorder?status=open", {
+    let response = await this._fetch(`${this.baseUrl}/api/v2/workorder?status=open`, {
         method: 'GET',
         headers: myHeaders,
         redirect: 'follow'
@@ -137,7 +158,7 @@ export async function updateOrders(): Promise<WorkOrderQueryResult>{
     result?.data?.forEach(order => {
         //TODO: CHECK WHICH DATES ON ORDER MIGHT BE CAUSING THE TIMELINE OLDEST DATE TO BE SUPER OLD
         order.formattedDate = getDate(order.date);
-        order.stage = determineStage(order);
+        order.stage = SaddleOakClient.determineStage(order);
         order.wpLaborHours = order.customFields['WP Labor Time']?.value || 0;
         order.assemblyLaborHours = order.customFields['Assembly Labor']?.value || 0;
         order.woLocation = order.customFields['WO Location']?.value || '';
@@ -147,7 +168,7 @@ export async function updateOrders(): Promise<WorkOrderQueryResult>{
             item.outstandingQuantity = +item.quantity - +item.shipped;
             item.open = +item.quantity - +item.produced
             item.order = order
-            if (!isValidDate(item.duedate)){
+            if (!SaddleOakClient.isValidDate(item.duedate)){
                 item.duedate = order.formattedDate.timestamp;
                 item.description += ' ITEM HAS AN INVALID DUE DATE';
             }
@@ -161,7 +182,7 @@ export async function updateOrders(): Promise<WorkOrderQueryResult>{
     return result;
 }
 
-function determineStage(order: WorkOrder):OrderStage{
+    static determineStage(order: WorkOrder):OrderStage{
     var priotityVar = order?.priority?.name;
     var priotityVarHold = priotityVar.indexOf("Hold");
     var stageVar = 0;
@@ -175,4 +196,10 @@ function determineStage(order: WorkOrder):OrderStage{
     order.stage = { id: stageVar, syncToken: 0, name: "" };
 
     return order.stage;
+}
+
+    static isValidDate(d:any) {
+	return (d !== '');
+  }
+
 }

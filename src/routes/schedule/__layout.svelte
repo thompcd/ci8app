@@ -1,5 +1,15 @@
-<script context="module">
-	export const ssr = false;
+<script lang="ts" context="module">
+	import type { Load } from '@sveltejs/kit';
+	import { createClient } from '$lib/data/inventoryClient';
+    
+    export const load: Load = async ({ fetch, session }) => {
+		const inventoryClient = createClient(fetch);
+
+		return {
+			stuff: { inventoryClient },
+			props: { inventoryClient }
+		};
+	};
 </script>
 <script lang="ts">
     import { orderStore as orders, filteredWorkOrders } from '$lib/data/orderStore';
@@ -8,21 +18,25 @@
     import { laborStore as filteredBomLabor } from '$lib/data/laborStore'
     import { daysIntoFuture } from '$lib/data/dateStore'
     import { formatTableColumns as formatItemTableColumns, formatTableRows as formatItemTableRows } from '$lib/charts/lineItemTable'
-    import { updateOrders, updateBomLabor } from '$lib/data/saddleOakClient';
+    import {  setClient } from '$lib/data/inventoryClient';
     
     import GTable from '$lib/charts/GTable.svelte';
     import { getFormattedDate, getLongFormattedDate } from '$lib/date-utils';
-    import TokenNotice from '$lib/components/TokenNotice.svelte';
     import Toggle from '$lib/components/Toggle.svelte'
     import { getContext } from 'svelte';
     import Button from '$lib/SvelteTip/@Buttons/Button.svelte';
     import Input from '$lib/SvelteTip/@Form/Input.svelte';
+    import type { Client } from '$lib/data/inventoryClient';
 
     let workOrderRefreshStamp: string = "";
     let laborRefreshStamp: string = "";
     let laborButtonLabel: string = "Extract Bom Labor";
     let viewQueryResults: boolean = false;
     const addSnack:any =getContext('addSnack')
+
+    //set the client context for all sub layout routes
+	export let inventoryClient: Client;
+    setClient(inventoryClient)
 
     //reactive statements cannot directly await, must wrap in a function
     async function updateData():Promise<void>{
@@ -32,7 +46,8 @@
             duration: '4000',
             closeOnClick: true
         });
-         $orders = await updateOrders();
+
+         $orders = await inventoryClient.updateOrders();
         workOrderRefreshStamp = "Updated " + getLongFormattedDate(new Date());
         if ($filteredBomLabor?.length < 1){
             addSnack({
@@ -64,32 +79,23 @@
         });
             console.log("updating labor")
             laborButtonLabel = "Searching..."
-            await updateBomLabor($filteredItems);
+            await inventoryClient.updateBomLabor($filteredItems);
         }
         else{
             console.log("not updating labor");
         }
-            addSnack({
-                message: "Inventory items up to date",
-                type: 'success',
-                duration: '2000',
-                closeOnClick: true
-            });
-            laborRefreshStamp = "Updated " + getLongFormattedDate(new Date());
-            laborButtonLabel = "Refresh Bom Labor";
-        };
+        addSnack({
+            message: "Inventory items up to date",
+            type: 'success',
+            duration: '2000',
+            closeOnClick: true
+        });
+        laborRefreshStamp = "Updated " + getLongFormattedDate(new Date());
+        laborButtonLabel = "Refresh Bom Labor";
+    };
 
     //run this at load
     $:updateData()
-    // // todo: may force to be "context='module'"
-    // export async function load({params}){
-    //     const response = await fetch(`/schedule`);
-    //     const data = await response.json();
-
-    //     return {
-    //         props: data
-    //     }
-    // }
 
 </script>
 

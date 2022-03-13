@@ -2,24 +2,11 @@ import type { WorkOrder } from "../interfaces/sos/workOrder";
 import type { Column } from '../interfaces/table';
 
 export function formatTableColumns(data: WorkOrder[]): Column[]{
-    var dateArray = data.map(w => w.formattedDate.pretty)
-    console.log("grabbing dates")
-    console.log(dateArray)
+    return [ 
+        {id:2,label: "Labor Hours", type: "number"},
+        {id:1,label: "Date", type: "date"}
 
-
-
-    let temp = [];
-    for (let index = 0; index < uniqueVals.length; index++) {
-        temp.push({id: index, label: uniqueVals[index], type: "date"})
-    }
-    console.log("formatted columns")
-    console.log(temp)
-    return temp;
-    // return [ 
-        // {id:2,label: "Labor Hours", type: "number"},
-        // {id:1,label: "Date", type: "date"}
-
-    // ];
+    ];
 };
 
 export function formatTableRows(data: WorkOrder[]){

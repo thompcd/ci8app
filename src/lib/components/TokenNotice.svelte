@@ -1,6 +1,14 @@
+<script lang="ts">
+import { getClient } from '$lib/data/inventoryClient';
+
+const api = getClient();
+var link = api.tokenUrl as string;
+
+</script>
+
 <h3>You may need a new access token.</h3>
 <p>Follow the link to grab a new grant id needed to generate an access token</p>
 <a 
 target="_blank" 
-href="https://api.sosinventory.com/oauth2/authorize?response_type=code&client_id=7874fb9e0b5c46ae89a350bdd3541129&redirect_uri="
+href={link}
 >Click to request new authorization code, use operations login</a>

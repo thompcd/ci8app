@@ -13,7 +13,7 @@
 	</h1>
 
 	<div class="focus">
-		<h1>Version - Preview 0.2</h1>
+		<h1>Version - Preview 0.3</h1>
 		<ul>
 			<li><h2>View your upcoming due orders on your <strong>schedule</strong></h2></li>
 			<li><h2>Forecast your labor allocation after extracting bom labor and using <strong>labor</strong></h2></li>
@@ -25,8 +25,6 @@
 		<h2>Upcoming Features</h2>
 		<ul>
 			<li><h2>Edit number of days into future to forecast</h2></li>
-			
-			<li><h2>Cache inventory items to reduce query time</h2></li>
 			<li><h2>User login and authentication</h2></li>
 			<li><h2>Automatic token refresh</h2></li>
 			<li><h2>Improved chart sizing</h2></li>
@@ -36,6 +34,18 @@
 
 	<h2>Change Log</h2>
 	<ul>
+		<li>
+			<h2>Preview 0.3 - Improved Query Speeds</h2>
+			<ul>
+				<li>Improve Query Speed - Support server side rendering of data</li>
+				<li>Improve Query Speed - Client-side caching of inventory items; first time on a new device will take a while, next time will be quicker</li>
+				<li>Improve Query Speed - Use server side or client side rendering, depending on context</li>
+				<li>Improve Query Speed - Use a single client instance, reducing connection times and ability to easily swap data sources</li>
+				<li>Decoupling from data source - Decouple from Saddle Oak as inventory source, allows testing on dummy data</li>
+				<li>Add additional env settings needed for automatic token generation</li>
+				<li>Updated tab image to CI8 logo</li>
+			</ul>
+		</li>
 		<li>
 			<h2>Preview 0.2 - Labor Chart Preview</h2>
 			<ul>
